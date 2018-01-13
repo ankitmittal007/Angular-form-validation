@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html data-ng-app="app">
+    <head>
+        <link href="libs/bootstrap-3.3.7/css/bootstrap-theme.min.css" rel="stylesheet" />
+        <link href="libs/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="libs/jquery-3.1.1.min.js"></script>
+        <script src="libs/angular-1.4.9/angular.min.js"></script>
+        <!--<script src="libs/angular-1.4.9/ui-bootstrap-tpls-2.4.0.min.js"></script>-->
+        <script src="libs/bootstrap-3.3.7/js/bootstrap.js"></script>
+        <script src="libs/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+        <!-- <script src="ngClipboard.js"></script> -->
+        <script src="script/formvalidationcontroller.js"></script>
+    </head>
+    <body>
+        <div ng-controller="formValidationController as vm">
+            <!-- <pre>{{myForm|json}}</pre> -->
+            <form name="myForm" novalidate ng-submit="vm.submitForm()">
+                <div class="col-sm-6 col-md-6 col-lg-6" style="padding:20px;">
+                    <div>
+                        <label class="form-group ">First Name</label>
+                        <input class="form-control" type="text" name="fname" ng-model="fname" placeholder="First Name"/>
+                    </div>
+                    <div ng-class="{'has-error': myForm.uname.$invalid && !myForm.uname.$pristine}">
+                        <label class="form-group ">User Name</label>
+                        <input class="form-control" type="text" name="uname" ng-model="Uname" ng-minlength="6" ng-maxlength="12" placeholder="User Name"/>
+                        <p class="help-block" ng-show="myForm.uname.$error.minlength && !myForm.uname.$pristine">
+                        Username should consists minimum 6 letters</p>
+                        <p class="help-block" ng-show="myForm.uname.$error.maxlength && !myForm.uname.$pristine">
+                        Username can have maximum 6 letters</p>
+                    </div>
+                    <!-- <pre>{{myForm.uname | json}}</pre> -->
+                    <div ng-class="{'has-error': myForm.age.$invalid && !myForm.age.$pristine}">
+                        <label class="form-group ">Age</label>
+                        <input class="form-control" type="number" name="age" ng-model="age" ng-pattern="/^([1][8-9]|[2-9]{2})$|^([1-9]\d{2,})$/" placeholder="Age"/> <!--For Age greater than 18-->
+                        <p class="help-block" ng-show="myForm.age.$invalid && !myForm.age.$pristine">
+                        Age should be greater than or equal to 18</p>
+                    </div>
+                    <div ng-class="{'has-error': myForm.useremail.$invalid && !myForm.useremail.$pristine}">
+                        <label class="form-group ">Email</label>
+                        <input class="form-control" type="email" name="useremail" ng-model="emailid" placeholder="Email"/>
+                        <p class="help-block" ng-show="myForm.useremail.$invalid && !myForm.useremail.$pristine">Enter valid email address</p>
+                    </div>
+                    <div>
+                        <label class="form-group ">Address</label>
+                        <input class="form-control" type="text" name="address" ng-model="address" placeholder="Address"/>
+                    </div>
+                    <div ng-class="{'has-error': myForm.contactno.$invalid && !myForm.contactno.$pristine}">
+                        <label class="form-group ">Contact No.</label>
+                        <input class="form-control" type="text" name="contactno" ng-model="phoneno" ng-pattern="/^(\+[0-9]{2,3}\-[0-9]{10})$/" placeholder="Contact no"/>
+                        <p class="help-block" ng-show="myForm.contactno.$invalid && !myForm.contactno.$pristine">Enter valid Contact no. with country code</p>
+                    </div>
+
+                    <div ng-class="{'has-error': myForm.password.$invalid && !myForm.password.$pristine}">
+                        <label class="form-group ">Contact No.</label>
+                        <input class="form-control" type="text" name="password" ng-model="password" ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/" placeholder="Password" title="Minimum 8 characters.Should consists atleast 1 lowercase,1 uppercase,1 numeric,1 special character"/>
+                        <p class="help-block" ng-show="myForm.password.$invalid && !myForm.password.$pristine">Enter valid password</p>
+                    </div>
+                    <!-- <input type="number" name="inputnum" ng-model="numberinput"
+                    ng-pattern="/^(\d{0,2}(\.{1}\d{1,2})?|100(\.00?)?)$/" />
+                    <span ng-show="!myForm.$pristine && myForm.inputnum.$invalid">Enter Value b/w 0 & 100</span> -->
+                    <button type="submit" class="btn btn-primary" style="margin-top:20px;" ng-disabled="myForm.$invalid || myForm.$pristine">Submit
+                    </button>
+                </form>
+                <!-- <pre>{{myForm.contactno | json}}</pre> -->
+            </div>
+            <div>{{vm.filteredobj}}</div>
+        </body>
+    </html>
